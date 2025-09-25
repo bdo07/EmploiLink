@@ -12,9 +12,13 @@ class CommentController extends Controller
     {
         $data = $request->validate([
             'body' => ['required', 'string', 'max:1000'],
-            'commentable_type' => ['required', Rule::in(['App\\Models\\Post'])],
+            'commentable_type' => ['required', 'string'],
             'commentable_id' => ['required', 'integer'],
         ]);
+
+        // Only allow whitelisted models to be commentable
+        $allowed = [\App\Models\Post::class];
+        abort_unless(in_array($data['commentable_type'], $allowed, true), 422);
 
         $commentable = $data['commentable_type']::findOrFail($data['commentable_id']);
 
