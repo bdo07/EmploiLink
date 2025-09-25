@@ -26,6 +26,9 @@ Route::middleware([
     
     // Stories
     Route::get('/stories', [StoryController::class, 'index'])->name('stories.index');
+    Route::get('/stories/create', function () {
+        return view('stories.create');
+    })->name('stories.create');
     Route::post('/stories', [StoryController::class, 'store'])->name('stories.store');
     Route::post('/stories/{story}/view', [StoryController::class, 'view'])->name('stories.view');
     Route::delete('/stories/{story}', [StoryController::class, 'destroy'])->name('stories.destroy');

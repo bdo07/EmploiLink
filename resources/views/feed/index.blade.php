@@ -18,7 +18,7 @@
                                 <a href="#create-post" class="block w-full bg-blue-600 text-white text-center py-2 px-4 rounded-lg hover:bg-blue-700 transition">
                                     Create Post
                                 </a>
-                                <a href="#create-story" class="block w-full bg-purple-600 text-white text-center py-2 px-4 rounded-lg hover:bg-purple-700 transition">
+                                <a href="{{ route('stories.create') }}" class="block w-full bg-purple-600 text-white text-center py-2 px-4 rounded-lg hover:bg-purple-700 transition">
                                     Add Story
                                 </a>
                                 <a href="{{ route('jobs.store') }}" class="block w-full bg-green-600 text-white text-center py-2 px-4 rounded-lg hover:bg-green-700 transition">
