@@ -1,12 +1,15 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-200 shadow-sm">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                   <!-- Logo -->
                   <div class="shrink-0 flex items-center">
-                      <a href="{{ route('home') }}">
-                          <x-application-mark class="block h-9 w-auto" />
+                      <a href="{{ route('home') }}" class="flex items-center space-x-2">
+                          <div class="w-8 h-8 bg-linkedin-600 rounded flex items-center justify-center">
+                              <span class="text-white font-bold text-lg">E</span>
+                          </div>
+                          <span class="text-xl font-bold text-gray-900">EmploiLink</span>
                       </a>
                   </div>
 

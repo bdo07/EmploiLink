@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="text-center">
-            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">
                 Trouvez votre emploi idéal
             </h1>
-            <p class="text-xl text-gray-600 dark:text-gray-400 mb-8">
+            <p class="text-xl text-gray-600 mb-8">
                 Découvrez des opportunités de carrière exceptionnelles
             </p>
         </div>
@@ -14,23 +14,26 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
             <!-- Hero Section -->
-            <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 mb-12 text-white">
+            <div class="linkedin-card p-8 mb-12">
                 <div class="text-center">
-                    <h2 class="text-3xl font-bold mb-4">EmploiLink</h2>
-                    <p class="text-xl mb-6">Votre réseau professionnel de confiance</p>
+                    <div class="w-16 h-16 bg-linkedin-600 rounded-full mx-auto mb-6 flex items-center justify-center">
+                        <span class="text-white font-bold text-2xl">E</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">EmploiLink</h2>
+                    <p class="text-xl text-gray-600 mb-8">Votre réseau professionnel de confiance</p>
                     <div class="flex justify-center space-x-4">
-                        <a href="{{ route('feed') }}" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                        <a href="{{ route('feed') }}" class="linkedin-button px-8 py-3">
                             Voir le Feed
                         </a>
                         @auth
-                            <a href="{{ route('jobs.store') }}" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">
+                            <a href="{{ route('jobs.store') }}" class="linkedin-button-secondary px-8 py-3">
                                 Poster un Emploi
                             </a>
                         @else
-                            <a href="{{ route('register') }}" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                            <a href="{{ route('register') }}" class="linkedin-button px-8 py-3">
                                 S'inscrire Gratuitement
                             </a>
-                            <a href="{{ route('login') }}" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">
+                            <a href="{{ route('login') }}" class="linkedin-button-secondary px-8 py-3">
                                 Se Connecter
                             </a>
                         @endauth
@@ -39,13 +42,13 @@
             </div>
 
             <!-- Search and Filters -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+            <div class="linkedin-card p-6 mb-8">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div class="md:col-span-2">
-                        <input type="text" placeholder="Rechercher un emploi..." class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-lg shadow-sm">
+                        <input type="text" placeholder="Rechercher un emploi..." class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-linkedin-500 focus:border-linkedin-500">
                     </div>
                     <div>
-                        <select class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-lg shadow-sm">
+                        <select class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-linkedin-500 focus:border-linkedin-500">
                             <option value="">Type d'emploi</option>
                             <option value="full_time">Temps plein</option>
                             <option value="part_time">Temps partiel</option>
@@ -54,65 +57,65 @@
                         </select>
                     </div>
                     <div>
-                        <input type="text" placeholder="Localisation" class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 rounded-lg shadow-sm">
+                        <input type="text" placeholder="Localisation" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-linkedin-500 focus:border-linkedin-500">
                     </div>
                 </div>
             </div>
 
             <!-- Stats -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center">
-                    <div class="text-3xl font-bold text-blue-600 mb-2">{{ $jobs->total() }}</div>
-                    <div class="text-gray-600 dark:text-gray-400">Emplois disponibles</div>
+                <div class="linkedin-card p-6 text-center">
+                    <div class="text-3xl font-bold text-linkedin-600 mb-2">{{ $jobs->total() }}</div>
+                    <div class="text-gray-600">Emplois disponibles</div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center">
-                    <div class="text-3xl font-bold text-green-600 mb-2">{{ \App\Models\User::count() }}</div>
-                    <div class="text-gray-600 dark:text-gray-400">Utilisateurs actifs</div>
+                <div class="linkedin-card p-6 text-center">
+                    <div class="text-3xl font-bold text-success-600 mb-2">{{ \App\Models\User::count() }}</div>
+                    <div class="text-gray-600">Utilisateurs actifs</div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center">
-                    <div class="text-3xl font-bold text-purple-600 mb-2">{{ \App\Models\Post::count() }}</div>
-                    <div class="text-gray-600 dark:text-gray-400">Posts partagés</div>
+                <div class="linkedin-card p-6 text-center">
+                    <div class="text-3xl font-bold text-accent-600 mb-2">{{ \App\Models\Post::count() }}</div>
+                    <div class="text-gray-600">Posts partagés</div>
                 </div>
             </div>
 
             <!-- Jobs Grid -->
             <div class="mb-8">
                 <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <h3 class="text-2xl font-bold text-gray-900">
                         Dernières offres d'emploi
                     </h3>
-                    <a href="{{ route('jobs.index') }}" class="text-blue-600 hover:text-blue-800 font-medium">
+                    <a href="{{ route('jobs.index') }}" class="text-linkedin-600 hover:text-linkedin-800 font-medium">
                         Voir toutes les offres →
                     </a>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @forelse($jobs as $job)
-                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                        <div class="linkedin-card hover:shadow-lg transition-shadow duration-300 overflow-hidden">
                             <!-- Job Header -->
                             <div class="p-6">
                                 <div class="flex items-start justify-between mb-4">
                                     <div class="flex items-center space-x-3">
-                                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                                        <div class="w-12 h-12 bg-linkedin-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
                                             {{ substr($job->company, 0, 1) }}
                                         </div>
                                         <div>
-                                            <h4 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                                <a href="{{ route('jobs.show', $job) }}" class="hover:text-blue-600 transition">
+                                            <h4 class="text-lg font-semibold text-gray-900">
+                                                <a href="{{ route('jobs.show', $job) }}" class="hover:text-linkedin-600 transition">
                                                     {{ $job->title }}
                                                 </a>
                                             </h4>
-                                            <p class="text-gray-600 dark:text-gray-400">{{ $job->company }}</p>
+                                            <p class="text-gray-600">{{ $job->company }}</p>
                                         </div>
                                     </div>
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">
                                         {{ ucfirst(str_replace('_', ' ', $job->type)) }}
                                     </span>
                                 </div>
 
                                 <!-- Job Details -->
                                 <div class="space-y-2 mb-4">
-                                    <div class="flex items-center text-gray-600 dark:text-gray-400">
+                                    <div class="flex items-center text-gray-600">
                                         <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
                                         </svg>
@@ -148,7 +151,7 @@
 
                                 <!-- Action Buttons -->
                                 <div class="flex items-center justify-between">
-                                    <a href="{{ route('jobs.show', $job) }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-medium">
+                                    <a href="{{ route('jobs.show', $job) }}" class="linkedin-button px-4 py-2 text-sm font-medium">
                                         Voir l'offre
                                     </a>
                                     @if($job->user)
@@ -180,22 +183,22 @@
             @endif
 
             <!-- Call to Action -->
-            <div class="bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl p-8 mt-12 text-white text-center">
-                <h3 class="text-2xl font-bold mb-4">Prêt à commencer votre carrière ?</h3>
-                <p class="text-lg mb-6">Rejoignez notre communauté professionnelle et découvrez de nouvelles opportunités</p>
+            <div class="linkedin-card p-8 mt-12 text-center">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Prêt à commencer votre carrière ?</h3>
+                <p class="text-lg text-gray-600 mb-8">Rejoignez notre communauté professionnelle et découvrez de nouvelles opportunités</p>
                 <div class="flex justify-center space-x-4">
                     @auth
-                        <a href="{{ route('feed') }}" class="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                        <a href="{{ route('feed') }}" class="linkedin-button px-8 py-3 font-semibold">
                             Explorer le Feed
                         </a>
-                        <a href="{{ route('jobs.store') }}" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition">
+                        <a href="{{ route('jobs.store') }}" class="linkedin-button-secondary px-8 py-3 font-semibold">
                             Poster un Emploi
                         </a>
                     @else
-                        <a href="{{ route('register') }}" class="bg-white text-green-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-lg">
+                        <a href="{{ route('register') }}" class="linkedin-button px-8 py-4 font-bold text-lg shadow-lg">
                             🚀 S'inscrire Gratuitement
                         </a>
-                        <a href="{{ route('login') }}" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition">
+                        <a href="{{ route('login') }}" class="linkedin-button-secondary px-8 py-3 font-semibold">
                             Se connecter
                         </a>
                     @endauth
@@ -207,7 +210,7 @@
     <!-- Floating Sign Up Button (only for guests) -->
     @guest
         <div class="fixed bottom-6 right-6 z-50">
-            <a href="{{ route('register') }}" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 font-semibold">
+            <a href="{{ route('register') }}" class="linkedin-button px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 font-semibold">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"></path>
                 </svg>
