@@ -21,6 +21,9 @@
                       <x-nav-link href="{{ route('jobs.index') }}" :active="request()->routeIs('jobs.*')">
                           {{ __('Emplois') }}
                       </x-nav-link>
+                      <x-nav-link href="{{ route('stories.all') }}" :active="request()->routeIs('stories.*')">
+                          {{ __('Stories') }}
+                      </x-nav-link>
                       @auth
                           <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                               {{ __('Dashboard') }}
@@ -167,6 +170,9 @@
               </x-responsive-nav-link>
               <x-responsive-nav-link href="{{ route('jobs.index') }}" :active="request()->routeIs('jobs.*')">
                   {{ __('Emplois') }}
+              </x-responsive-nav-link>
+              <x-responsive-nav-link href="{{ route('stories.all') }}" :active="request()->routeIs('stories.*')">
+                  {{ __('Stories') }}
               </x-responsive-nav-link>
               @auth
                   <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">

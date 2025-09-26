@@ -29,27 +29,45 @@
                     </div>
 
                     <!-- Stories -->
-                    @if($stories->count() > 0)
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6">
-                            <h3 class="text-lg font-semibold mb-4">Stories</h3>
-                            <div class="space-y-3">
-                                @foreach($stories->take(5) as $userStories)
-                                    @php $story = $userStories->first() @endphp
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold">
-                                            {{ substr($story->user->name, 0, 1) }}
-                                        </div>
-                                        <div>
-                                            <p class="text-sm font-medium">{{ $story->user->name }}</p>
-                                            <p class="text-xs text-gray-500">{{ $userStories->count() }} stories</p>
-                                        </div>
-                                    </div>
-                                @endforeach
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold">Stories</h3>
+                                <a href="{{ route('stories.all') }}" class="text-purple-600 hover:text-purple-800 text-sm font-medium">
+                                    Voir toutes →
+                                </a>
                             </div>
+                            
+                            @if($stories->count() > 0)
+                                <div class="space-y-3">
+                                    @foreach($stories->take(5) as $userStories)
+                                        @php $story = $userStories->first() @endphp
+                                        <div class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded-lg transition">
+                                            <div class="relative">
+                                                <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                                                    {{ substr($story->user->name, 0, 1) }}
+                                                </div>
+                                                <!-- Story indicator -->
+                                                <div class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white dark:border-gray-800"></div>
+                                            </div>
+                                            <div class="flex-1">
+                                                <p class="text-sm font-medium">{{ $story->user->name }}</p>
+                                                <p class="text-xs text-gray-500">{{ $userStories->count() }} stories • {{ $story->created_at->diffForHumans() }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="text-center py-8">
+                                    <div class="text-4xl mb-2">📱</div>
+                                    <p class="text-gray-500 mb-4">Aucune story disponible</p>
+                                    <a href="{{ route('stories.create') }}" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition text-sm">
+                                        Créer une Story
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     </div>
-                    @endif
                 </div>
 
                 <!-- Main Feed -->
