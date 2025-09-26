@@ -27,8 +27,11 @@
                                 Poster un Emploi
                             </a>
                         @else
-                            <a href="{{ route('register') }}" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">
-                                S'inscrire
+                            <a href="{{ route('register') }}" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                                S'inscrire Gratuitement
+                            </a>
+                            <a href="{{ route('login') }}" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">
+                                Se Connecter
                             </a>
                         @endauth
                     </div>
@@ -189,8 +192,8 @@
                             Poster un Emploi
                         </a>
                     @else
-                        <a href="{{ route('register') }}" class="bg-white text-green-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
-                            S'inscrire maintenant
+                        <a href="{{ route('register') }}" class="bg-white text-green-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition shadow-lg">
+                            🚀 S'inscrire Gratuitement
                         </a>
                         <a href="{{ route('login') }}" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition">
                             Se connecter
@@ -200,4 +203,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Floating Sign Up Button (only for guests) -->
+    @guest
+        <div class="fixed bottom-6 right-6 z-50">
+            <a href="{{ route('register') }}" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 font-semibold">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"></path>
+                </svg>
+                <span>S'inscrire</span>
+            </a>
+        </div>
+    @endguest
 </x-app-layout>
