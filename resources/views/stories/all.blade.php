@@ -76,9 +76,9 @@
                                     <a href="{{ route('profile.show', $user) }}" class="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition text-center text-sm">
                                         Voir le Profil
                                     </a>
-                                    <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition text-sm">
+                                    <a href="{{ route('stories.user', $user) }}" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition text-sm">
                                         Voir Stories
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

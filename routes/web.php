@@ -56,6 +56,12 @@ Route::get('/stories/user/{user}', function (\App\Models\User $user) {
     })->name('stories.create');
     Route::post('/stories', [StoryController::class, 'store'])->name('stories.store');
     Route::post('/stories/{story}/view', [StoryController::class, 'view'])->name('stories.view');
+    Route::post('/stories/{story}/mark-viewed', function (\App\Models\Story $story) {
+        if (auth()->check()) {
+            $story->views()->firstOrCreate(['viewer_id' => auth()->id()]);
+        }
+        return response()->json(['success' => true]);
+    })->name('stories.mark-viewed');
     Route::delete('/stories/{story}', [StoryController::class, 'destroy'])->name('stories.destroy');
     
     // Comments
