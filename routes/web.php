@@ -42,6 +42,15 @@ Route::get('/stories/all', function () {
         ->groupBy('user_id');
     return view('stories.all', compact('stories'));
 })->name('stories.all');
+
+Route::get('/stories/user/{user}', function (\App\Models\User $user) {
+    $stories = $user->stories()
+        ->active()
+        ->with('views')
+        ->latest()
+        ->get();
+    return view('stories.user', compact('user', 'stories'));
+})->name('stories.user');
     Route::get('/stories/create', function () {
         return view('stories.create');
     })->name('stories.create');
