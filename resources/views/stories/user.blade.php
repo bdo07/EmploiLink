@@ -101,10 +101,10 @@
 
                                 <!-- Story Actions -->
                                 <div class="mt-4 flex space-x-2">
-                                    <button class="flex-1 bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 transition text-sm">
+                                    <button onclick="viewStory({{ $story->id }})" class="flex-1 bg-purple-600 text-white px-3 py-2 rounded-lg hover:bg-purple-700 transition text-sm">
                                         Voir
                                     </button>
-                                    <button class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition text-sm">
+                                    <button onclick="shareStory({{ $story->id }})" class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition text-sm">
                                         Partager
                                     </button>
                                 </div>
@@ -169,4 +169,112 @@
             <span>Toutes</span>
         </a>
     </div>
+
+    <script>
+        function viewStory(storyId) {
+            // Mark story as viewed
+            fetch(`/stories/${storyId}/mark-viewed`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show story in modal or fullscreen
+                    showStoryModal(storyId);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Still show the story even if marking as viewed fails
+                showStoryModal(storyId);
+            });
+        }
+
+        function shareStory(storyId) {
+            // Copy story URL to clipboard
+            const storyUrl = `${window.location.origin}/stories/user/{{ $user->id }}#story-${storyId}`;
+            
+            navigator.clipboard.writeText(storyUrl).then(() => {
+                // Show success message
+                showNotification('Lien de la story copié dans le presse-papiers !', 'success');
+            }).catch(() => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = storyUrl;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('Lien de la story copié !', 'success');
+            });
+        }
+
+        function showStoryModal(storyId) {
+            // Create modal for story viewing
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-8 max-w-md w-full mx-4">
+                    <div class="text-center">
+                        <div class="w-32 h-32 bg-gradient-to-br from-purple-400 via-pink-400 to-red-400 rounded-xl mx-auto mb-4 flex items-center justify-center text-white text-4xl">
+                            📸
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Story de {{ $user->name }}</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Cette story expire dans quelques heures</p>
+                        <div class="flex space-x-3">
+                            <button onclick="closeStoryModal()" class="flex-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                                Fermer
+                            </button>
+                            <button onclick="shareStory(${storyId})" class="flex-1 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition">
+                                Partager
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeStoryModal();
+                }
+            });
+        }
+
+        function closeStoryModal() {
+            const modal = document.querySelector('.fixed.inset-0.bg-black');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg text-white font-semibold ${
+                type === 'success' ? 'bg-green-500' : 'bg-blue-500'
+            }`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Add CSRF token to meta tag if not present
+        if (!document.querySelector('meta[name="csrf-token"]')) {
+            const meta = document.createElement('meta');
+            meta.name = 'csrf-token';
+            meta.content = '{{ csrf_token() }}';
+            document.head.appendChild(meta);
+        }
+    </script>
 </x-app-layout>
