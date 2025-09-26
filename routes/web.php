@@ -15,6 +15,7 @@ Route::get('/feed', [FeedController::class, 'index'])->name('feed');
 Route::get('/jobs', [JobOfferController::class, 'index'])->name('jobs.index');
 Route::get('/jobs/{jobOffer}', [JobOfferController::class, 'show'])->name('jobs.show');
 Route::get('/u/{user}', [FeedController::class, 'profile'])->name('profile.show');
+Route::get('/profile/{user}', [FeedController::class, 'profile'])->name('user.profile');
 
 // Authenticated routes
 Route::middleware([
