@@ -47,7 +47,7 @@
                             @auth
                                 @if($user->id !== auth()->id())
                                     <div class="flex items-center space-x-3">
-                                        @if($isFollowing)
+                                        @if(isset($isFollowing) && $isFollowing)
                                             <form action="{{ route('follow.destroy', $user) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -82,7 +82,7 @@
             </div>
 
             <!-- Stories Section -->
-            @if($stories->count() > 0)
+            @if(isset($stories) && $stories->count() > 0)
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6">
                     <h3 class="text-lg font-semibold mb-4">Stories</h3>
@@ -105,7 +105,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-semibold mb-4">Posts</h3>
                     
-                    @forelse($posts as $post)
+                    @forelse(isset($posts) ? $posts : collect() as $post)
                         <div class="border-b border-gray-200 dark:border-gray-700 pb-6 mb-6 last:border-b-0 last:mb-0">
                             <!-- Post Header -->
                             <div class="flex items-center justify-between mb-4">
@@ -211,7 +211,7 @@
                     @endforelse
 
                     <!-- Pagination -->
-                    @if($posts->hasPages())
+                    @if(isset($posts) && $posts->hasPages())
                         <div class="mt-6">
                             {{ $posts->links() }}
                         </div>
