@@ -34,6 +34,14 @@ Route::middleware([
     
     // Stories
     Route::get('/stories', [StoryController::class, 'index'])->name('stories.index');
+Route::get('/stories/all', function () {
+    $stories = \App\Models\Story::active()
+        ->with('user')
+        ->latest()
+        ->get()
+        ->groupBy('user_id');
+    return view('stories.all', compact('stories'));
+})->name('stories.all');
     Route::get('/stories/create', function () {
         return view('stories.create');
     })->name('stories.create');
