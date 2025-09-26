@@ -39,6 +39,6 @@ class FeedController extends Controller
 
         $isFollowing = auth()->check() && auth()->user()->following()->where('followed_id', $user->id)->exists();
 
-        return view('profile.show', compact('user', 'posts', 'stories', 'isFollowing'));
+        return view('profile.social', compact('user', 'posts', 'stories', 'isFollowing'));
     }
 }
