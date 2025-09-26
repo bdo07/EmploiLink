@@ -4,7 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{FeedController, PostController, StoryController, CommentController, LikeController, FollowController, JobOfferController};
 
 // Public routes
-Route::get('/', [FeedController::class, 'index'])->name('feed');
+Route::get('/', function () {
+    $jobs = \App\Models\JobOffer::active()
+        ->with('user')
+        ->latest()
+        ->paginate(12);
+    return view('home', compact('jobs'));
+})->name('home');
+Route::get('/feed', [FeedController::class, 'index'])->name('feed');
 Route::get('/jobs', [JobOfferController::class, 'index'])->name('jobs.index');
 Route::get('/jobs/{jobOffer}', [JobOfferController::class, 'show'])->name('jobs.show');
 Route::get('/u/{user}', [FeedController::class, 'profile'])->name('profile.show');
